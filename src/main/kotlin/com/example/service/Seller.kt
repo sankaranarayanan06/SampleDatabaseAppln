@@ -1,8 +1,13 @@
 package com.example.service
 
+import com.example.repository.DatabaseOperation
+
 class Seller {
     fun updatePrice(price: Int) {
-        isPriceUpdateValid(price)
+        if(isPriceUpdateValid(price)){
+            val db = DatabaseOperation()
+            db.updatePrice(price)
+        }
     }
 
     fun isPriceUpdateValid(price: Int): Boolean {

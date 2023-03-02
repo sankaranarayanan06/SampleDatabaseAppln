@@ -1,8 +1,14 @@
 package com.example.service
 
+import com.example.repository.DatabaseOperation
+
 class Buyer {
-    fun buyItem(price: Int) {
-        isBuyPriceValid(price)
+    fun buyItem() {
+        val db = DatabaseOperation()
+        val price = db.getprice()
+        if (isBuyPriceValid(price)) {
+            db.createBuyHistory(price)
+        }
     }
 
     fun isBuyPriceValid(price: Int): Boolean {
