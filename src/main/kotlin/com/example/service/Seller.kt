@@ -1,4 +1,4 @@
-package com.example
+package com.example.service
 
 class Seller {
     fun updatePrice(price: Int) {

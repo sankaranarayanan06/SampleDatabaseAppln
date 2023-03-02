@@ -1,6 +1,7 @@
-package com.example
+package com.example.service
 
-import org.junit.jupiter.api.Assertions.*
+import org.junit.jupiter.api.Assertions.assertFalse
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.Test
 
 class SellerTest {
@@ -20,6 +21,5 @@ class SellerTest {
         val actualOutput = seller.isPriceUpdateValid(100)
 
         assertTrue(actualOutput)
-
     }
 }
