@@ -7,9 +7,20 @@ class DatabaseOperation {
     val connection = DriverManager.getConnection(jdbcUrl, "postgres", "root")
 
     fun updatePrice(price:Int){
-        val query = connection.prepareStatement("update item set price=?")
-        query.setInt(1,price)
-        query.executeUpdate()
+        val resultCount = connection.createStatement()
+        val result = resultCount.executeQuery("select count(*) from item")
+        result.next()
+        println()
+
+        if (result.getInt(1) > 0) {
+            val query = connection.prepareStatement("update item set price=?")
+            query.setInt(1,price)
+            query.executeUpdate()
+        } else {
+            val query = connection.prepareStatement("insert into item(price) values(?)")
+            query.setInt(1,price)
+            query.executeUpdate()
+        }
 
         val query1 = connection.prepareStatement("insert into item_price_history(price) values(?)")
         query1.setInt(1,price)
@@ -25,7 +36,7 @@ class DatabaseOperation {
     fun getprice(): Int {
         val query = connection.prepareStatement("select price from item")
         val result = query.executeQuery()
-        var price:Int = 0
+        var price = 0
         while(result.next()){
             price = result.getInt("price")
         }
